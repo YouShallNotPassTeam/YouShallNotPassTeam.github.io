@@ -34,22 +34,9 @@
   var ysnpApp = new Vue({
     el: '#ysnpApp',
     created: function() {
-      console.log('created!');
     },
     mounted: function() {
-      this.$nextTick(function() {
-        this.$http.get(
-          'http://passtest-001-site1.gtempurl.com/api/listkey')
-        .then(function(response) {
-
-          // get body data
-          this.someData = response.body;
-
-        }, 
-        function(response) {
-          // error callback
-        });
-      });
+      
     },
     data: {
       title: (function() {
@@ -90,7 +77,21 @@
     },
     methods: {
       doSubmit: function() {
-        console.log('submitting...');
+        this.$http.get(
+          'http://passtest-001-site1.gtempurl.com/api/listkey')
+          .then(function(response) {
+
+            // get body data
+            // this.someData = response.body;
+
+            window.location = 'result.html?fn=' + this.firstName;
+
+          }, 
+          function(response) {
+            if(__DEBUG__ === true) {
+              window.location = 'result.html?fn=' + this.firstName;
+            }
+          });
       },
       updateTitle: function() {
         var index = Math.round(Math.random() * gandalfQuotes.length);
@@ -98,6 +99,9 @@
         this.gandalfSays = gandalfQuotes[index];
         this.showSpeechBubble = true;
         return this.title;
+      },
+      hideSpeechBubble: function() {
+        this.showSpeechBubble = false;
       },
       updateTechnologies: function(ev) {
         var head  = document.getElementsByTagName('head')[0];
@@ -150,6 +154,24 @@
         }
       },
 
+    }
+  });
+
+  var ysnpAppResult = new Vue({
+    el: '#ysnpAppResult',
+    created: function() {
+      this.firstName = window.location.search.split('=')[1];
+    },
+    mounted: function() {
+
+    },
+    data: {
+      email: ''
+    },
+    methods: {
+      doSubmit: function() {
+
+      }
     }
   });
 
