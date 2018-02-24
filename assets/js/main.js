@@ -160,7 +160,7 @@
   var ysnpAppResult = new Vue({
     el: '#ysnpAppResult',
     created: function() {
-      this.firstName = window.location.search.split('=')[1];
+      this.firstName = window.location.search.split('=')[1] || 'Anonymous';
     },
     mounted: function() {
 
