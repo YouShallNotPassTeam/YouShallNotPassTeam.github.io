@@ -32,12 +32,22 @@
   // }, true);
 
   var ysnpApp = new Vue({
+    // Component-specific:
     el: '#ysnpApp',
     created: function() {
     },
     mounted: function() {
       
     },
+
+    // HTTP:
+    http: {
+      emulateJSON: true,
+      headers: {
+        'Accept': '*/*'
+      }
+    },
+
     data: {
       title: (function() {
         return gandalfQuotes[ Math.round(Math.random() * gandalfQuotes.length) ];
@@ -82,15 +92,24 @@
     methods: {
       doSubmit: function() {
         this.$http
-          .post('http://passtest-001-site1.gtempurl.com/validate', {
-            code: 'try at: ' + new Date().toLocaleString()
+          .post(
+            'http://passtest-001-site1.gtempurl.com/validate', 
+            ({
+              code: 'asdasdads'// + new Date().toLocaleString()
+            }), 
+            {
+              responseType: 'json',
+              headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
           })
           .then(function(response) {
 
             // get body data
             // this.someData = response.body;
-
-            window.location = 'result.html?fn=' + this.firstName;
+            console.log(response);
+            // window.location = 'result.html?fn=' + this.firstName;
 
           }, 
           function(errorResponse) {
