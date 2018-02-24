@@ -99,6 +99,7 @@
                     <label for="firstName">First name</label>
                     <input 
                       v-model="firstName"
+                      v-on:keyup="validateName"
                       type="text" 
                       class="form-control" 
                       id="firstName" 
@@ -113,6 +114,7 @@
                     <label for="lastName">Last name</label>
                     <input 
                       v-model="lastName"
+                      v-on:keyup="validateName"
                       type="text" 
                       class="form-control" 
                       id="lastName" 
@@ -151,11 +153,6 @@
                 <span class="text-muted">Riddles solved:</span>
                 <span class="badge badge-secondary badge-pill">{{hints.length}}</span>
               </h4>
-              <form class="card p-2">
-                <div class="input-group">
-                  <button type="submit" class="btn btn-secondary">Reset Form</button>
-                </div>
-              </form>
               <ul class="list-group mb-3">
                 <li 
                   v-for="hint in hints"
@@ -172,9 +169,9 @@
           <footer class="my-5 pt-5 text-muted text-center text-small">
             <p class="mb-1">&copy; 2018 Made with ♥ by Dimitar, Yordan, Plamen</p>
             <ul class="list-inline">
-              <li class="list-inline-item"><a href="#">Privacy</a></li>
+              <!-- li class="list-inline-item"><a href="#">Privacy</a></li>
               <li class="list-inline-item"><a href="#">Terms</a></li>
-              <li class="list-inline-item"><a href="#">Support</a></li>
+              <li class="list-inline-item"><a href="#">Support</a></li -->
             </ul>
           </footer>
         </div> <!-- .row -->

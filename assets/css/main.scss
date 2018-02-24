@@ -323,18 +323,19 @@ textarea {
 
     &:after {
 
-      content: ''; 
-      position: absolute; 
-      bottom: 0; 
-      left: 50%; 
-      width: 0; 
-      height: 0; 
-      border: 9px solid transparent; 
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      // transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border: 9px solid transparent;
       border-top-color: #00aabb;
-      border-bottom: 0; 
-      border-left: 0; 
-      margin-left: -4.5px; 
-      margin-bottom: -9px; 
+      border-bottom: 0;
+      border-left: 0;
+      margin-left: -4.5px;
+      margin-bottom: -9px;
     }
   } 
 }

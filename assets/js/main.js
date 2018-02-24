@@ -103,6 +103,12 @@
       hideSpeechBubble: function() {
         this.showSpeechBubble = false;
       },
+      validateName: function() {
+        if(this.firstName.toLowerCase() === 'chuck' &&
+            this.lastName.toLowerCase() === 'norris') {
+          console.log('success!');
+        }
+      },
       updateTechnologies: function(ev) {
         var head  = document.getElementsByTagName('head')[0];
         var link  = document.createElement('link');
