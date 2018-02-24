@@ -23,27 +23,80 @@
   ];
 
 
-  var notification = getElement('.gandalf .not')[0];
+  // var notification = getElement('.gandalf .not')[0];
 
-  notification.addEventListener('click', function(event) {
-    var index = Math.round(Math.random() * gandalfQuotes.length);
-    console.log('index:', index);
-    this.setAttribute('title', gandalfQuotes[ index ]);
-  }, true);
+  // notification.addEventListener('click', function(event) {
+  //   var index = Math.round(Math.random() * gandalfQuotes.length);
+  //   console.log('index:', index);
+  //   this.setAttribute('title', gandalfQuotes[ index ]);
+  // }, true);
 
   var ysnpApp = new Vue({
     el: '#ysnpApp',
+    created: function() {
+      console.log('created!');
+    },
+    mounted: function() {
+      this.$nextTick(function() {
+        this.$http.get(
+          'http://passtest-001-site1.gtempurl.com/api/listkey')
+        .then(function(response) {
+
+          // get body data
+          this.someData = response.body;
+
+        }, 
+        function(response) {
+          // error callback
+        });
+      });
+    },
     data: {
       title: (function() {
         return gandalfQuotes[ Math.round(Math.random() * gandalfQuotes.length) ];
       })(),
-      message: 'Hello Vue!',
-      introText:'Intro text here...'
+      
+      showSpeechBubble: false,
+      gandalfSays: 'Hello Werld!',
+      introText:'Intro text here...',
+
+      city: '',
+      department: '',
+      technologies: '',
+
+      firstName: '',
+      lastName: '',
+
+      secretCode: '',
+
+      hints: [
+        {
+          title: 'Title1',
+          description: 'Description1'
+        },
+        {
+          title: 'Title2',
+          description: 'Description2'
+        },
+        {
+          title: 'Title3',
+          description: 'Description3'
+        },
+        {
+          title: 'Title4',
+          description: 'Description4'
+        }
+      ]
     },
     methods: {
+      doSubmit: function() {
+        console.log('submitting...');
+      },
       updateTitle: function() {
         var index = Math.round(Math.random() * gandalfQuotes.length);
         this.title = gandalfQuotes[index];
+        this.gandalfSays = gandalfQuotes[index];
+        this.showSpeechBubble = true;
         return this.title;
       },
       updateTechnologies: function(ev) {
@@ -51,6 +104,7 @@
         var link  = document.createElement('link');
         var haystack = ev.target.value || '';
         var technology = '';
+        var hasFoundMatch = false;
         console.log('haystack:', haystack);
 
         var exciting = [
@@ -71,7 +125,8 @@
         exciting.forEach(function(tech) {
           var isMatching = haystack.replace('.', '').match(tech.regex);
           // console.log('is matching:', isMatching);
-          if(isMatching) {
+          if(isMatching && hasFoundMatch) {
+            hasFoundMatch = true;
             technology = tech.theme;
           }
         });
@@ -93,7 +148,8 @@
             easter.parentElement.removeChild(easter);
           }
         }
-      }
+      },
+
     }
   });
 
