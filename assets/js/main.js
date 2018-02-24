@@ -56,7 +56,7 @@
       showSpeechBubble: false,
       gandalfSays: 'Hello Werld!',
 
-      showFooterSpeechBubble: true,
+      showFooterSpeechBubble: false,
       gandalfFooterText: '',
       
       introText:'Intro text here...',
