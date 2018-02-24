@@ -1,80 +1,75 @@
 <!doctype html>
 <html lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Давай, Чък</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Давай, Чък</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" /> 
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="assets/css/normalize.css" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
-    </head>
-    <body>
-
-        <!-- Add your site or application content here -->
-        <div id="ysnpAppResult" class="container" v-cloak>
-          <div class="row">
-            <div class="col-md-12">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="./">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Result</li>
-                </ol>
-              </nav>
-            </div>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" /> 
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
+  </head>
+  <body>
+    <div id="ysnpAppResult" v-cloak>
+      <!-- Add your site or application content here -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Result</li>
+              </ol>
+            </nav>
           </div>
-          <div class="row">
+        </div>
+        <div class="row">
 
-            <div class="col-md-8">
-              <h5 class="mb-3">Hey, {{firstName}}!</h5>
-              <form 
-                v-on:submit.prevent="doSubmit"
-                class="needs-validation" 
-                novalidate="novalidate">
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="email">E-mail</label>
-                    <input 
-                      v-model="email"
-                      type="text" 
-                      class="form-control" 
-                      id="email"
-                      placeholder="" 
-                      value="" 
-                      required="required">
-                    <div class="invalid-feedback">
-                      Please select a valid country.
-                    </div>
+          <div class="col-md-8">
+            <h5 class="mb-3">Hey, {{firstName}}!</h5>
+            <form 
+              v-on:submit.prevent="doSubmit"
+              class="needs-validation" 
+              novalidate="novalidate">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email">E-mail</label>
+                  <input 
+                    v-model="email"
+                    type="text" 
+                    class="form-control" 
+                    id="email"
+                    placeholder="" 
+                    value="" 
+                    required="required">
+                  <div class="invalid-feedback">
+                    Please select a valid country.
                   </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign me up!</button>
-              </form>
-            </div>
-            <div class="col-md-4">
-              
-            </div>
+              </div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Sign me up!</button>
+            </form>
           </div>
-          <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2018 Made with ♥ by Dimitar, Yordan, Plamen</p>
-            <ul class="list-inline">
-              <!-- li class="list-inline-item"><a href="#">Privacy</a></li>
-              <li class="list-inline-item"><a href="#">Terms</a></li>
-              <li class="list-inline-item"><a href="#">Support</a></li -->
-            </ul>
-          </footer>
-        </div> <!-- .row -->
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <div class="col-md-4">
+            
+          </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+          <p class="mb-1">&copy; 2018 Made with ♥ by Dimitar, Yordan, Plamen</p>
+        </footer>
+      </div> <!-- .row -->
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <script src="assets/js/bootstrap.bundle.js"></script>
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-    </body>
+    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

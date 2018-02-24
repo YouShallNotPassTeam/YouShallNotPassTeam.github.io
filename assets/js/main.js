@@ -45,6 +45,10 @@
       
       showSpeechBubble: false,
       gandalfSays: 'Hello Werld!',
+
+      showFooterSpeechBubble: true,
+      gandalfFooterText: '',
+      
       introText:'Intro text here...',
 
       city: '',
@@ -77,8 +81,10 @@
     },
     methods: {
       doSubmit: function() {
-        this.$http.get(
-          'http://passtest-001-site1.gtempurl.com/api/listkey')
+        this.$http
+          .post('http://passtest-001-site1.gtempurl.com/validate', {
+            code: 'try at: ' + new Date().toLocaleString()
+          })
           .then(function(response) {
 
             // get body data
@@ -92,6 +98,21 @@
               window.location = 'result.html?fn=' + this.firstName;
             }
           });
+        // this.$http.get(
+        //   'http://passtest-001-site1.gtempurl.com/api/listkey')
+        //   .then(function(response) {
+
+        //     // get body data
+        //     // this.someData = response.body;
+
+        //     window.location = 'result.html?fn=' + this.firstName;
+
+        //   }, 
+        //   function(response) {
+        //     if(__DEBUG__ === true) {
+        //       // window.location = 'result.html?fn=' + this.firstName;
+        //     }
+        //   });
       },
       updateTitle: function() {
         var index = Math.round(Math.random() * gandalfQuotes.length);
@@ -102,6 +123,9 @@
       },
       hideSpeechBubble: function() {
         this.showSpeechBubble = false;
+      },
+      hideFooterSpeechBubble: function() {
+        this.showFooterSpeechBubble = false;
       },
       validateName: function() {
         if(this.firstName.toLowerCase() === 'chuck' &&
