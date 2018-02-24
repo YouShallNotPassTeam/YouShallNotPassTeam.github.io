@@ -2,3 +2,5 @@
 *.7z
 *.css.map
 .sass-cache/
+*.ai
+*.psd

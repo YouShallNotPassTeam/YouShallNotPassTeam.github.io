@@ -16,6 +16,9 @@ body {
   font-family: 'Open Sans', Verdana, Arial, sans-serif;
   font-weight: 300; }
 
+[v-cloak] {
+  display: none; }
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -207,5 +210,23 @@ textarea {
 
   h2, h3 {
     page-break-after: avoid; } }
+.gandalf {
+  margin: 0 auto;
+  width: 100px;
+  position: relative; }
+  .gandalf .not {
+    top: 0;
+    right: 0;
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    border-radius: 3px/6px;
+    background-color: #0084ff;
+    box-shadow: 1px 1px 2px #888;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1px;
+    color: #FFF;
+    cursor: pointer; }
 
 /*# sourceMappingURL=main.css.map */
