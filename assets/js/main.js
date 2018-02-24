@@ -93,26 +93,11 @@
             window.location = 'result.html?fn=' + this.firstName;
 
           }, 
-          function(response) {
+          function(errorResponse) {
             if(__DEBUG__ === true) {
-              window.location = 'result.html?fn=' + this.firstName;
+              // window.location = 'result.html?fn=' + this.firstName;
             }
           });
-        // this.$http.get(
-        //   'http://passtest-001-site1.gtempurl.com/api/listkey')
-        //   .then(function(response) {
-
-        //     // get body data
-        //     // this.someData = response.body;
-
-        //     window.location = 'result.html?fn=' + this.firstName;
-
-        //   }, 
-        //   function(response) {
-        //     if(__DEBUG__ === true) {
-        //       // window.location = 'result.html?fn=' + this.firstName;
-        //     }
-        //   });
       },
       updateTitle: function() {
         var index = Math.round(Math.random() * gandalfQuotes.length);
@@ -127,10 +112,30 @@
       hideFooterSpeechBubble: function() {
         this.showFooterSpeechBubble = false;
       },
+      showNotification: function(text) {
+        this.showFooterSpeechBubble = true;
+        this.gandalfFooterText = text;
+        var that = this;
+        setTimeout(function() {
+          that.hideNotification();
+        }, 10000);
+      },
+      hideNotification: function() {
+        this.showFooterSpeechBubble = false;
+        this.gandalfFooterText = '';
+      },
       validateName: function() {
         if(this.firstName.toLowerCase() === 'chuck' &&
             this.lastName.toLowerCase() === 'norris') {
           console.log('success!');
+        var that = this;
+          this.$http
+            .get('https://api.chucknorris.io/jokes/random')
+            .then(function(res) {
+              console.log("ck:", res);
+              res = JSON.parse(res.bodyText);
+              that.showNotification(res.value);
+            });
         }
       },
       updateTechnologies: function(ev) {
