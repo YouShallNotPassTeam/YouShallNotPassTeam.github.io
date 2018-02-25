@@ -33,13 +33,13 @@
         <div class="row">
 
           <div class="col-md-8">
-            <h5 class="mb-3">Hey, {{firstName}}!</h5>
+            <h5 class="mb-3">Hey, {{first_name}}!</h5>
             <form
               v-on:submit.prevent="doSubmit"
               class="needs-validation"
               novalidate="novalidate">
               <div class="row">
-                <div class="col-md-3 mb-1">
+                <div class="col-md-6 mb-3">
                   <label for="first_name">First Name</label>
                   <input v-model="first_name"
                          type="text"
@@ -52,8 +52,8 @@
                     Please enter first name.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1">
-                  <label for="last_name">First Name</label>
+                <div class="col-md-6 mb-3">
+                  <label for="last_name">Last Name</label>
                   <input v-model="last_name"
                          type="text"
                          class="form-control"
@@ -67,7 +67,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-6">
                   <label for="email">E-mail</label>
                   <input
                     v-model="email"
@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Sign me up!</button>
+              <button class="btn btn-primary btn-lg btn-block" style="margin:20px 0 0 0" type="submit">Sign me up!</button>
             </form>
           </div>
           <div class="col-md-4">

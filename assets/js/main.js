@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
 
   /*
                             _           _ _               _                          _
@@ -466,24 +466,64 @@
     }
   });
 
+  
   var ysnpAppResult = new Vue({
     el: '#ysnpAppResult',
-    created: function() {
-      this.firstName = window.location.search.split('=')[1] || 'Anonymous';
+    created: function () {
+      this.first_name = window.location.search.split('=')[1] || 'Anonymous';
     },
-    mounted: function() {
+    mounted: function () {
 
     },
     data: {
-      firstName: 'Anonymous',
-      email: ''
+      first_name: 'Anonymous',
+      last_name: '',
+      email: '',
+      hints: 0,
+      secrets: 0
+
     },
     methods: {
-      doSubmit: function() {
+      doSubmit: function () {
+        var that = this;
+        console.log('form:', this.email);
+        this.$http
+        .post(
+          getRestEndpoint('register'),
+          ({
+            first_name: this.first_name,
+            last_name: this.last_name,
+            email: this.email,
+            hints: 0,
+            secrets: 0
+          }),
+          {
+            responseType: 'json',
+            headers: {
+              // 'Accept': '*/*',
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+          })
+        .then(function (response) {
 
+          // get body data
+          // this.someData = response.body;
+          response = getResponseBody(response);
+
+          if (response.succes) {
+            window.location = "/"
+          }
+          else {
+            console.log(response);
+          }
+
+
+        });
       }
     }
   });
+
+
 
   Vue.http.interceptors.push(function(request) {
     var that = this;
