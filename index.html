@@ -134,11 +134,11 @@
                     placeholder=""
                     value=""
                     required="required" />
-                  <div
+                  <!-- div
                     v-show="!secret.isSuccessful"
                     class="invalid-feedback">
                     {{secret.errorMsg}}
-                  </div>
+                  </div -->
                 </div>
               </div>
 
@@ -174,6 +174,23 @@
                 <span class="text-muted"></span>
               </li>
             </ul>
+
+            <h4
+              v-if="isTryNextActive"
+              class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Try next:</span>
+            </h4>
+            <ul
+              v-if="isTryNextActive"
+              class="list-group mb-3 hints">
+              <li
+                class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0">{{tryNext}}</h6>
+                </div>
+                <span class="text-muted"></span>
+              </li>
+            </ul>
           </div>
         </div>
         <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -181,7 +198,7 @@
         </footer>
       </div> <!-- .row -->
       <div class="gandalf-footer">
-        <img class="d-block mx-auto mb-4" src="assets/gfx/gandalf.png" width="100" height="75" alt="" />
+        <img class="d-block mx-auto mb-4" src="assets/gfx/gandalf_small.png" width="100" height="75" alt="" />
         <div
           v-if="showFooterSpeechBubble"
           v-on:click="hideFooterSpeechBubble"

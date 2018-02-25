@@ -180,6 +180,8 @@
       hints: [
 
       ],
+      isTryNextActive: false,
+      tryNext: '',
 
       secret: {
         isSuccessful: true,
@@ -230,16 +232,14 @@
 
 
             if(!response.succes) {
+              that.isTryNextActive = true;
               var sec = response.secret;
               for(var p in sec) {
                 that.secret.errorMsg = sec[p];
+                that.tryNext = sec[p];
                 break;
               }
             }
-            console.log('secret:', that.secret.errorMsg);
-            console.log('aaaaa', that);
-
-            console.log('response', response);
             // window.location = 'result.html?fn=' + this.firstName;
 
           },
