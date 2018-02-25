@@ -41,43 +41,10 @@
             <h4 class="mb-3">Sign-up form</h4>
             <form
               v-on:submit.prevent="doSubmit"
-              class="needs-validation"
+              class="ysnp-form needs-validation"
               novalidate="novalidate">
               <div class="row">
-                <div class="col-md-4 mb-3">
-                  <label for="city">City</label>
-                  <input
-                    v-model="form.city"
-                    type="text"
-                    class="form-control"
-                    id="city"
-                    placeholder=""
-                    value="" />
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="country">Preferred department</label>
-                  <select
-                    v-model="form.department"
-                    class="custom-select d-block w-100" id="country">
-                    <option value="">Choose...</option>
-                    <option>Front-end / JS</option>
-                    <option>Front-end / Styling</option>
-                    <option>Back-end / Java</option>
-                    <option>Back-end / .NET</option>
-                    <option>Back-end / PHP</option>
-                    <option>Back-end / Python</option>
-                    <option>Quality Assurance</option>
-                    <option>Mobile / iOS</option>
-                    <option>Mobile / Android</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-12 mb-3">
                   <label for="tech">Technologies</label>
                   <input
                     v-model="form.technologies"
@@ -85,7 +52,7 @@
                     type="text"
                     class="form-control"
                     id="tech"
-                    placeholder=""
+                    placeholder="Java, PHP, iOS"
                     value="" />
                   <div class="invalid-feedback">
                     Valid last name is required.
@@ -101,7 +68,7 @@
                     type="text"
                     class="form-control"
                     id="firstName"
-                    placeholder=""
+                    placeholder="John"
                     value="" />
                   <div class="invalid-feedback">
                     Valid first name is required.
@@ -115,7 +82,7 @@
                     type="text"
                     class="form-control"
                     id="lastName"
-                    placeholder=""
+                    placeholder="Doe"
                     value="" />
                   <div class="invalid-feedback">
                     Valid last name is required.
@@ -147,10 +114,10 @@
               <button
                 class="btn btn-primary btn-lg btn-block"
                 type="submit">I'm ready!</button>
-              <button
+              <!-- button
                 v-on:click="wizardToggle"
                 class="btn btn-secondary btn-lg btn-block"
-                type="button">toggle wizard</button>
+                type="button">toggle wizard</button -->
             </form>
           </div>
           <div class="col-md-4 order-md-2 mb-4">
@@ -216,6 +183,25 @@
               v-on:click="hideSpeechBubble"
               class="speech-bubble">{{wizard.speechText}}</div>
           </transition>
+        </div>
+      </transition>
+      <div class="bsod" v-if="easters.dotnet">
+        <div class="error">
+          <div class="error-header"><span>ERROR:</span></div>
+          A fatal exception C8 has occurred at E4D4:C1D5D6C9 in C4C 9E2(D4) +<br />
+          D9D6C3D2E2. The current application will be terminated.
+          <ul>
+            <li>Press any key if this wasn't what you expected.</li>
+            <li>Press CTRL+ALT+DELETE again to close your window. You will lose any unsaved information in all tabs.</li>
+          </ul>
+        </div>
+      </div>
+      <transition name="spinner">
+        <div v-show="showSpinner" class="spinner-holder">
+          <div class="spinner">
+              <div class="dot1"></div>
+              <div class="dot2"></div>
+          </div>
         </div>
       </transition>
     </div>

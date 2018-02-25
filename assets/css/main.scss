@@ -294,6 +294,12 @@ textarea {
 /// YOU SHALL NOT PASS!
 ///
 ////////////////////////
+.wrapper {
+  .ysnp-form {
+    z-index: 10;
+    position: relative;
+  }
+}
 .gandalf {
   bottom: 0;
   right: 10%;
@@ -373,13 +379,126 @@ textarea {
   }
 }
 
-// ANIMATIONS:
-// .gandalf:hover {
-//   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-//   transform: translate3d(0, 0, 0);
-//   backface-visibility: hidden;
-//   perspective: 1000px;
-// }
+.bsod {
+  z-index: 50;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;
+  background: #0000AA;
+  color: #fff;
+  animation: blink 1s steps(1, end) infinite forwards;
+
+  .error-header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .error-header span {
+    background: rgba(255, 255, 255, 0.7);
+    color: #0000AA;
+    margin: auto;
+  }
+
+  .error {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 14px;
+    max-width: 420px;
+  }
+}
+
+.spinner-holder {
+  z-index: 100;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 1);
+
+  &.spinner-enter-active,
+  &.spinner-leave-active {
+    transition: opacity .5s;
+  }
+  &.spinner-enter,
+  &.spinner-leave-to {/* .fade-leave-active below version 2.1.8 */
+    opacity: 0;
+  }
+}
+
+.spinner {
+  left: 50%;
+  top: 50%;
+  position: fixed;
+  margin: -20px 0 0 -20px;
+  // transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+
+  -webkit-animation: sk-rotate 2.0s infinite linear;
+  animation: sk-rotate 2.0s infinite linear;
+}
+
+.dot1, .dot2 {
+  width: 60%;
+  height: 60%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  background-color: #007bff;
+  border-radius: 100%;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.dot2 {
+  top: auto;
+  bottom: 0;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-rotate {
+  100% {
+    -webkit-transform: rotate(360deg)
+  }
+}
+@keyframes sk-rotate {
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+
+@keyframes blink {
+  0% { opacity: 1; }
+  33% { opacity: 0; }
+  100% { opacity: 0; }
+}
 
 @keyframes shake {
   10%, 90% {

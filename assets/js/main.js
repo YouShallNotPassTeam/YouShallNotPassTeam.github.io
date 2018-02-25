@@ -163,11 +163,7 @@
         showSpeechBubble: false,
         speechText: 'Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit '
       },
-      showSpeechBubble: false,
-      gandalfSays: 'Hello Werld!',
-
-      showFooterSpeechBubble: false,
-      gandalfFooterText: '',
+      showSpinner: false,
 
       introText:'Intro text here...',
 
@@ -185,6 +181,9 @@
       hints: [
 
       ],
+      easters: {
+        dotnet: false
+      },
       isTryNextActive: false,
       tryNext: '',
 
@@ -254,6 +253,7 @@
             }
           });
       },
+
       updateTitle: function() {
         var index = Math.round(Math.random() * gandalfQuotes.length);
         this.title = gandalfQuotes[index];
@@ -333,6 +333,19 @@
 
       },
 
+      // Easters:
+      resetEasters: function() {
+        console.log('resetting easters...');
+        for(var easterName in this.easter) {
+          this.easters[easterName] = false;
+        }
+      },
+
+      enableEaster: function(easterName) {
+        console.log('enabling easter', easterName);
+        this.easters[easterName] = true;
+      },
+
       // Validation
       validateName: function() {
         if(this.form.firstName.toLowerCase() === 'chuck' &&
@@ -344,7 +357,7 @@
             .then(function(res) {
               console.log("ck:", res);
               res = JSON.parse(res.bodyText);
-              that.wizardSayAndHide(res.value, );
+              that.wizardSayAndHide(res.value, 10000);
             });
         }
       },
@@ -359,29 +372,34 @@
         var exciting = [
           {
             regex: /nodejs/,
-            theme: 'nodejs'
+            name: 'nodejs'
           },
           {
             regex: /net/,
-            theme: 'dotnet'
+            name: 'dotnet'
           },
           {
             regex: /java/,
-            theme: 'java'
+            name: 'java'
           }
         ];
 
+        this.resetEasters();
+
         exciting.forEach(function(tech) {
           var isMatching = haystack.replace('.', '').match(tech.regex);
-          // console.log('is matching:', isMatching);
-          if(isMatching && hasFoundMatch) {
+          console.log('is matching:', isMatching, hasFoundMatch);
+          if(isMatching !== null && !hasFoundMatch) {
+            console.log('success excite');
             hasFoundMatch = true;
-            technology = tech.theme;
+            technology = tech.name;
+            this.enableEaster(tech.name);
           }
-        });
+        }, this);
 
         // console.log(technology, ev);
-
+        var easter = getElement('#easter');
+        console.log('easter', easter);
         if(technology.length > 0) {
           link.id = 'easter';
           link.rel  = 'stylesheet';
@@ -390,13 +408,13 @@
           link.media = 'all';
           head.appendChild(link);
         }
-        else {
-          var easter = getElement('#easter');
-          if(easter.length) {
-            easter = easter[0];
-            easter.parentElement.removeChild(easter);
-          }
-        }
+        // else {
+        //   var easter = getElement('#easter');
+        //   if(easter.length) {
+        //     easter = easter[0];
+        //     easter.parentElement.removeChild(easter);
+        //   }
+        // }
       },
 
     }
@@ -419,6 +437,25 @@
 
       }
     }
+  });
+
+  Vue.http.interceptors.push(function(request) {
+    var that = this;
+    if(this.easters['java']) {
+      this.showSpinner = true;
+    }
+
+    setTimeout(function() {
+      that.showSpinner = false;
+    }, 5000);
+
+    // return response callback
+    return function(response) {
+
+      // this.showSpinner = false;
+      return response;
+
+    };
   });
 
   if(__DEBUG__ === true) {
