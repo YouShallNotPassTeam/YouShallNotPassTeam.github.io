@@ -1,11 +1,86 @@
 (function() {
 
+  /*
+                            _           _ _               _                          _
+                         | |         | | |             | |                        | |
+  _   _  ___  _   _   ___| |__   __ _| | |  _ __   ___ | |_    _ __   __ _ ___ ___| |
+ | | | |/ _ \| | | | / __| '_ \ / _` | | | | '_ \ / _ \| __|  | '_ \ / _` / __/ __| |
+ | |_| | (_) | |_| | \__ \ | | | (_| | | | | | | | (_) | |_   | |_) | (_| \__ \__ \_|
+  \__, |\___/ \__,_| |___/_| |_|\__,_|_|_| |_| |_|\___/ \__|  | .__/ \__,_|___/___(_)
+   __/ |                                                      | |
+  |___/                                                       |_|
+
+                                                        +`
+                                                     d.
+                               `.                    d-
+     .                         +d`                   m-
+   -:/+                        dmo                   m:
+   `s/o                       :mmm-                 `m/
+    `s-                       ymmmy                 `m/
+     -o                      :mmmmm/                `m+
+      y                  .-/+dmmmmmmyyso/:-.`       `m+
+      /:            ./oyddmmmmmmmmmmmmmmmhs/`      /omd+-
+      -y.           `.-/+syhmmmmmmmmd+/-.`       ..`smm.
+     `dmdy:so+:-`          `dmmhddmmm        .:ohdyyddy`
+      smmh/dmmmmdy+:---:/+oomms:s:ymdo/:--/shdmmmmh..s:
+      `:d` /mmmmmmmmmmmmmmmmmd.`. :dmmmmmmmmmmmmmmd  ``
+        d.  dmmmmmmmmmmmmmmmmo    `dmmmmmmmmmmmmmmm
+        s+  ommmmmmmmmmdhdmmm/     ymm+:+shdmmmmmmm`
+        :y  +mmmmdys/-.``+mmm/    .dmm-   `.:+syhdd-
+        `d` :o+:-.       -mmmd    .mmm:         `..`
+         y/              /mmmm/. :ommm+
+         /y              ommmmmo+hmmmmh
+         `m`             dmmmmmmmmmmmmm-
+          y:            -mmmmmmmmmmmmmmy
+          +s            smmmmmmmmmmmmmmm-
+          .d           .mmmmmmmmmmmmmmmmh
+           h-          ommmmmmmmmmmmmmmmm+
+           +o         `mmmmmmmmmmmmmmmmmmm.
+           .d         ommmmmmmmmmmmmmmmmmmy
+            h.       .mmmmmmmmmmmmmmmmmmmmm+
+            ++       smmmmmmmmmmmmmmmmmmmmmm-
+            .h      .mmmmmmmmmmmmmmmmmmmmmmmd`
+             +      ymmmmmmmmmmmmmmmmmmmmmmmmy
+                   `///::oyyy+//////oyyyo//+++.
+                         -///-      :+++:
+   */
+
+  function createCookie(name,value,days) {
+    var expires = null;
+    var date = new Date();
+    if (days) {
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      expires = "; expires="+date.toGMTString();
+    }
+    else {
+      expires = "";
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
+  }
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    createCookie(name,"",-1);
+  }
+
   var __DEBUG__ = true;
 
   var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
   var restEndpoints = {
     'validate': 'validate'
   };
+
+
 
   function getRestEndpoint(endpointId) {
     if( !(endpointId in restEndpoints) ) {
@@ -15,6 +90,11 @@
     var endpoint = restEndpoints[endpointId];
 
     return baseUrl + endpoint;
+  }
+
+  function getResponseBody(res) {
+    // console.log(res);
+    return (res.body);
   }
 
   function getElement(queryString) {
@@ -36,6 +116,16 @@
     // 'Fly you fools',
     'Courage will now be your best defence against the storm that is at hand-—that and such hope as I bring.'
   ];
+
+  var env = 'TEST';
+  var envKey = 'MyKey';
+  var tcosAuthDomain = 'hrt://pain.com';
+  // console.groupCollapsed('Initializing Google Analytics...');
+  // console.log('%cEnvironment:', 'color: tomato', env);
+  // console.log('%cUsing tracking ID for:', 'color: tomato', envKey);
+  // console.log('%cAdditional domains:', 'color: tomato', tcosAuthDomain);
+  // console.groupEnd();
+
 
 
   // var notification = getElement('.gandalf .not')[0];
@@ -88,26 +178,12 @@
       },
 
       hints: [
-        {
-          title: 'Title1',
-          description: 'Description1'
-        },
-        {
-          title: 'Title2',
-          description: 'Description2'
-        },
-        {
-          title: 'Title3',
-          description: 'Description3'
-        },
-        {
-          title: 'Title4',
-          description: 'Description4'
-        }
+
       ]
     },
     methods: {
       doSubmit: function() {
+        var that = this;
         console.log('form:', this.form.secretCode);
         // return;
         this.$http
@@ -127,7 +203,19 @@
 
             // get body data
             // this.someData = response.body;
-            console.log(response);
+            response = getResponseBody(response);
+            var hints = [];
+
+            for(var hintId in response.hint) {
+              hints.push({
+                title: hintId,
+                description: response.hint[hintId]
+              });
+            }
+
+            that.hints = that.hints.concat(hints);
+
+            console.log('response', response);
             // window.location = 'result.html?fn=' + this.firstName;
 
           },
@@ -239,6 +327,7 @@
 
     },
     data: {
+      firstName: 'Anonymous',
       email: ''
     },
     methods: {

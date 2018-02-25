@@ -344,10 +344,16 @@ textarea {
   }
 }
 
+.hints {
+  h6 {
+    text-transform: capitalize;
+  }
+}
+
 .gandalf-footer {
   position: fixed;
   bottom: 0px;
-  right: 20%;
+  right: 10%;
 
   .speech-bubble {
     top: -20px;
