@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="">
   <head>
     <meta charset="utf-8" />
@@ -39,6 +39,34 @@
               class="needs-validation"
               novalidate="novalidate">
               <div class="row">
+                <div class="col-md-3 mb-1">
+                  <label for="first_name">First Name</label>
+                  <input v-model="first_name"
+                         type="text"
+                         class="form-control"
+                         id="first_name"
+                         placeholder=""
+                         value=""
+                         required="required">
+                  <div class="invalid-feedback">
+                    Please enter first name.
+                  </div>
+                </div>
+                <div class="col-md-3 mb-1">
+                  <label for="last_name">First Name</label>
+                  <input v-model="last_name"
+                         type="text"
+                         class="form-control"
+                         id="last_name"
+                         placeholder=""
+                         value=""
+                         required="required">
+                  <div class="invalid-feedback">
+                    Please enter last name.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="email">E-mail</label>
                   <input
@@ -50,7 +78,7 @@
                     value=""
                     required="required">
                   <div class="invalid-feedback">
-                    Please select a valid country.
+                    Please enter email.
                   </div>
                 </div>
               </div>

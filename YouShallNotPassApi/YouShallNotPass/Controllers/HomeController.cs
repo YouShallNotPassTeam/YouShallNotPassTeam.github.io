@@ -13,6 +13,12 @@ namespace YouShallNotPass.Controllers
             return View();
         }
 
-        
-    }
+        [Route("result")]
+        public ActionResult Rresult()
+        {
+          return View("Result");
+        }
+
+
+  }
 }

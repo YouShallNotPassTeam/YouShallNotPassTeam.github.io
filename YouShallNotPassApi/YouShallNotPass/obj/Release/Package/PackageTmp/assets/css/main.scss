@@ -295,9 +295,21 @@ textarea {
 ///
 ////////////////////////
 .gandalf {
+  bottom: 0;
+  right: 10%;
+  position: fixed;
   margin: 0 auto;
   width: 100px;
-  position: relative;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+
+  &.wizard-enter-active,
+  &.wizard-leave-active {
+    transition: opacity .5s;
+  }
+  &.wizard-enter,
+  &.wizard-leave-to {/* .fade-leave-active below version 2.1.8 */
+    opacity: 0;
+  }
 
   .not {
     top: 0;
@@ -316,14 +328,25 @@ textarea {
   }
 
   .speech-bubble {
-    top: -20px;
+    top: 0px;
     right: 0;
+    transform: translate(64px, -100%);
     position: absolute;
     padding: 5px;
+    min-width: 200px;
     background-color: rgb(0, 132, 255);
     border-radius: .4em;
     font-size: 12px;
     color: #fff;
+
+    &.bubble-enter-active,
+    &.bubble-leave-active {
+      transition: opacity .5s;
+    }
+    &.bubble-enter,
+    &.bubble-leave-to {/* .fade-leave-active below version 2.1.8 */
+      opacity: 0;
+    }
 
     &:after {
 
@@ -350,48 +373,13 @@ textarea {
   }
 }
 
-.gandalf-footer {
-  position: fixed;
-  bottom: 0px;
-  right: 10%;
-
-  .speech-bubble {
-    top: -20px;
-    right: 0;
-    position: absolute;
-    padding: 5px;
-    background-color: rgb(0, 132, 255);
-    border-radius: .4em;
-    font-size: 12px;
-    color: #fff;
-
-    &:after {
-
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
-      // transform: translate(-50%, -50%);
-      width: 0;
-      height: 0;
-      border: 9px solid transparent;
-      border-top-color: #00aabb;
-      border-bottom: 0;
-      border-left: 0;
-      margin-left: -4.5px;
-      margin-bottom: -9px;
-    }
-  }
-}
-
-
 // ANIMATIONS:
-.gandalf:hover {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
+// .gandalf:hover {
+//   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+//   transform: translate3d(0, 0, 0);
+//   backface-visibility: hidden;
+//   perspective: 1000px;
+// }
 
 @keyframes shake {
   10%, 90% {

@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
 
   /*
                             _           _ _               _                          _
@@ -158,6 +158,11 @@
         return gandalfQuotes[ Math.round(Math.random() * gandalfQuotes.length) ];
       })(),
 
+      wizard: {
+        show: false,
+        showSpeechBubble: false,
+        speechText: 'Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit Lorem ipsum dolor sit amet adipiscit elit '
+      },
       showSpeechBubble: false,
       gandalfSays: 'Hello Werld!',
 
@@ -274,6 +279,61 @@
         this.showFooterSpeechBubble = false;
         this.gandalfFooterText = '';
       },
+
+      // Wizardry:
+      wizardShow: function() {
+        var that = this;
+        this.wizard.show = true;
+        setTimeout(function() {
+          that.wizard.showSpeechBubble = true;
+        }, 1000);
+      },
+      isWizardVisible: function() {
+        return this.wizard.show;
+      },
+      wizardChangeText: function(text) {
+        var that = this;
+        this.wizard.showSpeechBubble = false;
+        setTimeout(function() {
+          that.wizard.speechText = text;
+          that.wizard.showSpeechBubble = true;
+          // setTimeout(function() {
+
+          // }, 1000);
+        }, 1000);
+      },
+      wizardSetText: function(text) {
+        this.wizard.speechText = text;
+      },
+      wizardHide: function() {
+        this.wizard.show = false;
+        this.wizard.showSpeechBubble = false;
+      },
+      wizardToggle: function() {
+        if(this.isWizardVisible()) {
+          this.wizardHide();
+        }
+        else {
+          this.wizardShow();
+        }
+      },
+      wizardSayAndHide: function(text, duration) {
+        duration = duration || 5000;
+        var that = this;
+        if(!this.isWizardVisible()) {
+          this.wizardSetText(text);
+          this.wizardShow();
+        }
+        else {
+          this.wizardChangeText(text);
+        }
+        setTimeout(function() {
+            that.wizardHide();
+        }, this.isWizardVisible() ? duration : duration + 1000);
+
+      },
+
+      // Validation
       validateName: function() {
         if(this.form.firstName.toLowerCase() === 'chuck' &&
             this.form.lastName.toLowerCase() === 'norris') {
@@ -284,7 +344,7 @@
             .then(function(res) {
               console.log("ck:", res);
               res = JSON.parse(res.bodyText);
-              that.showNotification(res.value);
+              that.wizardSayAndHide(res.value, );
             });
         }
       },
