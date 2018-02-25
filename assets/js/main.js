@@ -2,6 +2,21 @@
 
   var __DEBUG__ = true;
 
+  var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
+  var restEndpoints = {
+    'validate': 'validate'
+  };
+
+  function getRestEndpoint(endpointId) {
+    if( !(endpointId in restEndpoints) ) {
+      return 'notfound';
+    }
+
+    var endpoint = restEndpoints[endpointId];
+
+    return baseUrl + endpoint;
+  }
+
   function getElement(queryString) {
     return document.querySelectorAll(queryString);
   }
@@ -37,7 +52,7 @@
     created: function() {
     },
     mounted: function() {
-      
+
     },
 
     // HTTP:
@@ -52,13 +67,13 @@
       title: (function() {
         return gandalfQuotes[ Math.round(Math.random() * gandalfQuotes.length) ];
       })(),
-      
+
       showSpeechBubble: false,
       gandalfSays: 'Hello Werld!',
 
       showFooterSpeechBubble: false,
       gandalfFooterText: '',
-      
+
       introText:'Intro text here...',
 
       form: {
@@ -97,14 +112,14 @@
         // return;
         this.$http
           .post(
-            'http://passtest-001-site1.gtempurl.com/validate', 
+            getRestEndpoint('validate'),
             ({
               code: this.form.secretCode// + new Date().toLocaleString()
-            }), 
+            }),
             {
               responseType: 'json',
               headers: {
-                'Accept': '*/*',
+                // 'Accept': '*/*',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
           })
@@ -115,7 +130,7 @@
             console.log(response);
             // window.location = 'result.html?fn=' + this.firstName;
 
-          }, 
+          },
           function(errorResponse) {
             if(__DEBUG__ === true) {
               // window.location = 'result.html?fn=' + this.firstName;
@@ -148,8 +163,8 @@
         this.gandalfFooterText = '';
       },
       validateName: function() {
-        if(this.firstName.toLowerCase() === 'chuck' &&
-            this.lastName.toLowerCase() === 'norris') {
+        if(this.form.firstName.toLowerCase() === 'chuck' &&
+            this.form.lastName.toLowerCase() === 'norris') {
           console.log('success!');
         var that = this;
           this.$http
