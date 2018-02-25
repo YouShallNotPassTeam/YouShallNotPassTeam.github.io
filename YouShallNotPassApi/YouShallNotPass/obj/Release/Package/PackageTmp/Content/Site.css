@@ -1,0 +1,22 @@
+﻿.main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px auto 100px;
+    grid-gap: 0px;
+    grid-template-areas: . "logo" .;
+}
+
+
+
+.logo {
+    background-color: white;
+    display: flex;
+    grid-template: "logo";
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.img {
+    height: 80vh;
+}
