@@ -47,7 +47,7 @@
                 <div class="col-md-4 mb-3">
                   <label for="city">City</label>
                   <input 
-                    v-model="city"
+                    v-model="form.city"
                     type="text" 
                     class="form-control" 
                     id="city" 
@@ -61,7 +61,7 @@
                 <div class="col-md-4 mb-3">
                   <label for="country">Preferred department</label>
                   <select 
-                    v-model="department"
+                    v-model="form.department"
                     class="custom-select d-block w-100" id="country" required="required">
                     <option value="">Choose...</option>
                     <option>Front-end / JS</option>
@@ -81,7 +81,7 @@
                 <div class="col-md-4 mb-3">
                   <label for="tech">Technologies</label>
                   <input
-                    v-model="technologies"
+                    v-model="form.technologies"
                     v-on:keyup="updateTechnologies"
                     type="text" 
                     class="form-control" 
@@ -98,7 +98,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="firstName">First name</label>
                   <input 
-                    v-model="firstName"
+                    v-model="form.firstName"
                     v-on:keyup="validateName"
                     type="text" 
                     class="form-control" 
@@ -113,7 +113,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="lastName">Last name</label>
                   <input 
-                    v-model="lastName"
+                    v-model="form.lastName"
                     v-on:keyup="validateName"
                     type="text" 
                     class="form-control" 
@@ -130,7 +130,7 @@
                 <div class="col-md-12 mb-3">
                   <label for="secretCode">Secret code</label>
                   <input 
-                    v-model="secretCode"
+                    v-model="form.secretCode"
                     type="text" 
                     class="form-control" 
                     id="secretCode" 

@@ -61,14 +61,16 @@
       
       introText:'Intro text here...',
 
-      city: '',
-      department: '',
-      technologies: '',
+      form: {
+        city: '',
+        department: '',
+        technologies: '',
 
-      firstName: '',
-      lastName: '',
+        firstName: '',
+        lastName: '',
 
-      secretCode: '',
+        secretCode: ''
+      },
 
       hints: [
         {
@@ -91,11 +93,13 @@
     },
     methods: {
       doSubmit: function() {
+        console.log('form:', this.form.secretCode);
+        // return;
         this.$http
           .post(
             'http://passtest-001-site1.gtempurl.com/validate', 
             ({
-              code: 'asdasdads'// + new Date().toLocaleString()
+              code: this.form.secretCode// + new Date().toLocaleString()
             }), 
             {
               responseType: 'json',
