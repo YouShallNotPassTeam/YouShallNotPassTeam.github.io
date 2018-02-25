@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
+/*! You shall not pass! */
 
 /*
  * What follows is the result of much research on cross-browser styling.
@@ -19,6 +19,10 @@ html {
 body {
   font-family: 'Open Sans', Verdana, Arial, sans-serif;
   font-weight: 300;
+}
+
+.wrapper {
+  background: url('../gfx/bg.png') no-repeat center 100px;
 }
 
 [v-cloak] {
@@ -291,9 +295,21 @@ textarea {
 ///
 ////////////////////////
 .gandalf {
+  bottom: 0;
+  right: 10%;
+  position: fixed;
   margin: 0 auto;
   width: 100px;
-  position: relative;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+
+  &.wizard-enter-active,
+  &.wizard-leave-active {
+    transition: opacity .5s;
+  }
+  &.wizard-enter,
+  &.wizard-leave-to {/* .fade-leave-active below version 2.1.8 */
+    opacity: 0;
+  }
 
   .not {
     top: 0;
@@ -312,14 +328,25 @@ textarea {
   }
 
   .speech-bubble {
-    top: -20px;
+    top: 0px;
     right: 0;
+    transform: translate(64px, -100%);
     position: absolute;
     padding: 5px;
+    min-width: 200px;
     background-color: rgb(0, 132, 255);
     border-radius: .4em;
     font-size: 12px;
     color: #fff;
+
+    &.bubble-enter-active,
+    &.bubble-leave-active {
+      transition: opacity .5s;
+    }
+    &.bubble-enter,
+    &.bubble-leave-to {/* .fade-leave-active below version 2.1.8 */
+      opacity: 0;
+    }
 
     &:after {
 
@@ -340,36 +367,34 @@ textarea {
   }
 }
 
-.gandalf-footer {
-  position: fixed;
-  bottom: 0px;
-  right: 20%;
+.hints {
+  h6 {
+    text-transform: capitalize;
+  }
+}
 
-  .speech-bubble {
-    top: -20px;
-    right: 0;
-    position: absolute;
-    padding: 5px;
-    background-color: rgb(0, 132, 255);
-    border-radius: .4em;
-    font-size: 12px;
-    color: #fff;
+// ANIMATIONS:
+// .gandalf:hover {
+//   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+//   transform: translate3d(0, 0, 0);
+//   backface-visibility: hidden;
+//   perspective: 1000px;
+// }
 
-    &:after {
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
 
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
-      // transform: translate(-50%, -50%);
-      width: 0;
-      height: 0;
-      border: 9px solid transparent;
-      border-top-color: #00aabb;
-      border-bottom: 0;
-      border-left: 0;
-      margin-left: -4.5px;
-      margin-bottom: -9px;
-    }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }

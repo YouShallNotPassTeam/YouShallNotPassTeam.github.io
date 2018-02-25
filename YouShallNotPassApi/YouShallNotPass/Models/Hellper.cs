@@ -85,7 +85,7 @@ namespace YouShallNotPass.Models
                 result.secret.Add("Chuck", "Chuck Norris approved");
             }
 
-            if (first_name.Length > 2 && last_name.Length > 2 && !ValidateByKey("3L11T", first_name) && !ValidateByKey("3L11T", last_name))
+            if (first_name.Length > 2 && last_name.Length > 2 && ValidateByKey("3L11T", first_name) && ValidateByKey("3L11T", last_name))
             {
                 result.secret.Add("3l1t N4m3!", "3l1t N4m3!");
             }
