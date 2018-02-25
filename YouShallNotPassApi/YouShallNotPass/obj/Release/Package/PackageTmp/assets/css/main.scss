@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
+/*! You shall not pass! */
 
 /*
  * What follows is the result of much research on cross-browser styling.
@@ -19,6 +19,10 @@ html {
 body {
   font-family: 'Open Sans', Verdana, Arial, sans-serif;
   font-weight: 300;
+}
+
+.wrapper {
+  background: url('../gfx/bg.png') no-repeat center 100px;
 }
 
 [v-cloak] {
@@ -340,10 +344,16 @@ textarea {
   }
 }
 
+.hints {
+  h6 {
+    text-transform: capitalize;
+  }
+}
+
 .gandalf-footer {
   position: fixed;
   bottom: 0px;
-  right: 20%;
+  right: 10%;
 
   .speech-bubble {
     top: -20px;
@@ -371,5 +381,32 @@ textarea {
       margin-left: -4.5px;
       margin-bottom: -9px;
     }
+  }
+}
+
+
+// ANIMATIONS:
+.gandalf:hover {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }

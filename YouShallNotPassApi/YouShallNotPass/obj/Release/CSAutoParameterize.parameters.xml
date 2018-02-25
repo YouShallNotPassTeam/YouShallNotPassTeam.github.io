@@ -1,2 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters />
+<parameters>
+  <parameter name="ShallPassConnectionString-Web.config Connection String" description="ShallPassConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=sql7004.site4now.net;Initial Catalog=DB_A35E2D_pass;User ID=DB_A35E2D_pass_admin;Password=K23571113" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\yordan\.dyakov\\Desktop\\YouShallNotPass\\YouShallNotPassApi\\YouShallNotPass\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ShallPassConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

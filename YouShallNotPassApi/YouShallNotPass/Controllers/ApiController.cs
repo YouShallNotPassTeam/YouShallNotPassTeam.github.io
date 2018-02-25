@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using YouShallNotPass.DAL;
 using YouShallNotPass.Models;
 
 namespace YouShallNotPass.Controllers
@@ -13,9 +14,6 @@ namespace YouShallNotPass.Controllers
         {
             return View();
         }
-
-
-
         
         [Route("validate")]
         public ActionResult listKeys(string code ="",  string first_name = "", string last_name = "", Guid[] hints= null, Guid[] secrets= null)
@@ -64,5 +62,46 @@ namespace YouShallNotPass.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-    }
-}
+
+
+        [Route("register")]
+        public ActionResult Register(string first_name = "", string last_name = "", string email="", int time = 0, int attempts = 0, int secrets = 0)
+        {
+              using (ShallPassDBContext dc = new ShallPassDBContext())
+              {
+                    DAL.User user = new DAL.User()
+                    {
+                      first_name = first_name,
+                      last_name = last_name,
+                      email = email,
+                      attempts = attempts,
+                      secrets = secrets,
+                      time = time
+                    };
+                    dc.Users.Add(user);
+                    dc.SaveChanges();
+              }
+              
+              return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+
+        [Route("list")]
+        public ActionResult List()
+        {
+
+              List<User> list = new List<DAL.User>();
+              using (ShallPassDBContext dc = new ShallPassDBContext())
+              {
+                  list = dc.Users.ToList();
+              }
+
+              return Json(list, JsonRequestBehavior.AllowGet);
+
+        }
+
+  }
+
+  }
