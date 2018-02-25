@@ -45,7 +45,12 @@
                          -///-      :+++:
    */
 
-  function createCookie(name,value,days) {
+  var KOOKIE_PREFIX = 'wiz_';
+  var KOOKIE_NAME = 'wizard';
+  var KOOKIE_NAME_STORE = 'store';
+
+  function createCookie(name, value, days) {
+    name = KOOKIE_PREFIX + name;
     var expires = null;
     var date = new Date();
     if (days) {
@@ -59,6 +64,7 @@
   }
 
   function readCookie(name) {
+    name = KOOKIE_PREFIX + name;
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
@@ -79,8 +85,6 @@
   var restEndpoints = {
     'validate': 'validate'
   };
-
-
 
   function getRestEndpoint(endpointId) {
     if( !(endpointId in restEndpoints) ) {
@@ -168,6 +172,7 @@
       introText:'Intro text here...',
 
       form: {
+        startTime: new Date().getTime(),
         city: '',
         department: '',
         technologies: '',
@@ -175,7 +180,10 @@
         firstName: '',
         lastName: '',
 
-        secretCode: ''
+        secretCode: '',
+        endTime: null,
+        attempts: 1,
+        userId: null
       },
 
       hints: [
@@ -194,13 +202,32 @@
     },
     methods: {
       doSubmit: function() {
+
         var that = this;
-        console.log('form:', this.form.secretCode);
+        if(this.form.secretCode.length === 0) {
+          return;
+        }
+        console.log('this.userHasId()', this.userHasId());
+        if(!this.userHasId()) {
+          this.userCreateId();
+        }
+        if(this.userHasId() && this.form.attempts === 1) {
+          var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
+          var userId = readCookie(KOOKIE_NAME);
+          this.form.startTime = usr.startTime;
+          this.form.attempts = usr.attempts;
+          this.form.userId = userId;
+        }
+        this.form.endTime = new Date().getTime();
+        this.updateUserStore();
+
         this.$http
           .post(
             getRestEndpoint('validate'),
             ({
-              code: this.form.secretCode// + new Date().toLocaleString()
+              code: this.form.secretCode,// + new Date().toLocaleString()
+              first_name: this.form.firstName,
+              last_name: this.form.lastName
             }),
             {
               responseType: 'json',
@@ -229,11 +256,11 @@
             }
 
             that.hints = that.hints.concat(hints);
-
             that.secret.isSuccessful = response.succes;
 
-            console.log('secret:', that.secret.isSuccessful);
-
+            if(!that.secret.isSuccessful) {
+              that.form.attempts++;
+            }
 
             if(!response.succes) {
               that.isTryNextActive = true;
@@ -244,7 +271,9 @@
                 break;
               }
             }
-            // window.location = 'result.html?fn=' + this.firstName;
+            else {
+              window.location = 'result.html?uid=' + this.form.userId;
+            }
 
           },
           function(errorResponse) {
@@ -335,23 +364,43 @@
 
       // Easters:
       resetEasters: function() {
-        console.log('resetting easters...');
         for(var easterName in this.easter) {
           this.easters[easterName] = false;
         }
       },
 
       enableEaster: function(easterName) {
-        console.log('enabling easter', easterName);
         this.easters[easterName] = true;
+      },
+
+      // User management:
+      userHasId: function() {
+        return readCookie(KOOKIE_NAME) === null ? false : true;
+      },
+
+      guidGen: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      },
+
+      userCreateId: function() {
+        console.log('creating id');
+        var id = this.guidGen();
+        this.form.userId = id;
+        createCookie(KOOKIE_NAME, id, 365);
+      },
+
+      updateUserStore: function() {
+        createCookie(KOOKIE_NAME_STORE, JSON.stringify(this.form), 365);
       },
 
       // Validation
       validateName: function() {
+        var that = this;
         if(this.form.firstName.toLowerCase() === 'chuck' &&
             this.form.lastName.toLowerCase() === 'norris') {
-          console.log('success!');
-        var that = this;
           this.$http
             .get('https://api.chucknorris.io/jokes/random')
             .then(function(res) {
@@ -367,7 +416,7 @@
         var haystack = ev.target.value || '';
         var technology = '';
         var hasFoundMatch = false;
-        console.log('haystack:', haystack);
+        // console.log('haystack:', haystack);
 
         var exciting = [
           {
@@ -388,7 +437,7 @@
 
         exciting.forEach(function(tech) {
           var isMatching = haystack.replace('.', '').match(tech.regex);
-          console.log('is matching:', isMatching, hasFoundMatch);
+          // console.log('is matching:', isMatching, hasFoundMatch);
           if(isMatching !== null && !hasFoundMatch) {
             console.log('success excite');
             hasFoundMatch = true;
@@ -399,7 +448,11 @@
 
         // console.log(technology, ev);
         var easter = getElement('#easter');
-        console.log('easter', easter);
+        if(easter.length) {
+          easter = easter[0];
+          easter.parentElement.removeChild(easter);
+        }
+
         if(technology.length > 0) {
           link.id = 'easter';
           link.rel  = 'stylesheet';
@@ -408,14 +461,7 @@
           link.media = 'all';
           head.appendChild(link);
         }
-        // else {
-        //   var easter = getElement('#easter');
-        //   if(easter.length) {
-        //     easter = easter[0];
-        //     easter.parentElement.removeChild(easter);
-        //   }
-        // }
-      },
+      }
 
     }
   });
