@@ -33,7 +33,7 @@
     'It is not despair, for despair is only for those who see the end beyond all doubt. We do not.',
     '"You cannot pass," he said. The orcs stood still, and a dead silence fell.',
     'I am a servant of the Secret Fire, wielder of the flame of Anor. You cannot pass. ',
-    'Fly you fools',
+    // 'Fly you fools',
     'Courage will now be your best defence against the storm that is at hand-—that and such hope as I bring.'
   ];
 

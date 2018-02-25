@@ -21,6 +21,10 @@ body {
   font-weight: 300;
 }
 
+.wrapper {
+  background: url('../gfx/bg.png') no-repeat center center;
+}
+
 [v-cloak] {
   display: none;
 }

@@ -9,7 +9,7 @@
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <!-- Place favicon.ico in the root directory -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" /> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/normalize.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
   </head>
   <body>
-    <div id="ysnpAppResult" v-cloak>
+    <div id="ysnpAppResult" class="wrapper" v-cloak>
       <!-- Add your site or application content here -->
       <div class="container">
         <div class="row">
@@ -34,20 +34,20 @@
 
           <div class="col-md-8">
             <h5 class="mb-3">Hey, {{firstName}}!</h5>
-            <form 
+            <form
               v-on:submit.prevent="doSubmit"
-              class="needs-validation" 
+              class="needs-validation"
               novalidate="novalidate">
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="email">E-mail</label>
-                  <input 
+                  <input
                     v-model="email"
-                    type="text" 
-                    class="form-control" 
+                    type="text"
+                    class="form-control"
                     id="email"
-                    placeholder="" 
-                    value="" 
+                    placeholder=""
+                    value=""
                     required="required">
                   <div class="invalid-feedback">
                     Please select a valid country.
@@ -58,7 +58,7 @@
             </form>
           </div>
           <div class="col-md-4">
-            
+
           </div>
         </div>
         <footer class="my-5 pt-5 text-muted text-center text-small">

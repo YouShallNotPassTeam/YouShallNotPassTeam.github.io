@@ -9,7 +9,7 @@
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" /> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=cyrillic" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/normalize.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -17,42 +17,42 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.4.0"></script>
   </head>
   <body>
-    <div id="ysnpApp" v-cloak>
+    <div id="ysnpApp" class="wrapper" v-cloak>
       <!-- Add your site or application content here -->
       <div class="container">
         <div class="py-5 text-center">
-          <div class="gandalf">
+          <!-- div class="gandalf">
             <img class="d-block mx-auto mb-4" src="assets/gfx/gandalf.png" width="100" height="75" alt="" />
-            <div 
+            <div
               v-if="!showSpeechBubble"
               v-bind:title="title"
               v-on:click="updateTitle"
               class="not" >...</div>
-            <div 
+            <div
               v-if="showSpeechBubble"
               v-on:click="hideSpeechBubble"
               class="speech-bubble">{{gandalfSays}}</div>
-          </div>
-          <h2></h2>
-          <p class="lead">{{introText}}</p>
+          </div -->
+          <h2>Fly you fool!</h2>
+          <p class="lead"></p>
         </div>
         <div class="row">
           <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Sign-up form</h4>
-            <form 
+            <form
               v-on:submit.prevent="doSubmit"
-              class="needs-validation" 
+              class="needs-validation"
               novalidate="novalidate">
               <div class="row">
                 <div class="col-md-4 mb-3">
                   <label for="city">City</label>
-                  <input 
+                  <input
                     v-model="form.city"
-                    type="text" 
-                    class="form-control" 
-                    id="city" 
-                    placeholder="" 
-                    value="" 
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder=""
+                    value=""
                     required="required">
                   <div class="invalid-feedback">
                     Please select a valid country.
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="country">Preferred department</label>
-                  <select 
+                  <select
                     v-model="form.department"
                     class="custom-select d-block w-100" id="country" required="required">
                     <option value="">Choose...</option>
@@ -83,11 +83,11 @@
                   <input
                     v-model="form.technologies"
                     v-on:keyup="updateTechnologies"
-                    type="text" 
-                    class="form-control" 
-                    id="tech" 
-                    placeholder="" 
-                    value="" 
+                    type="text"
+                    class="form-control"
+                    id="tech"
+                    placeholder=""
+                    value=""
                     required="required" />
                   <div class="invalid-feedback">
                     Valid last name is required.
@@ -97,14 +97,14 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="firstName">First name</label>
-                  <input 
+                  <input
                     v-model="form.firstName"
                     v-on:keyup="validateName"
-                    type="text" 
-                    class="form-control" 
-                    id="firstName" 
-                    placeholder="" 
-                    value="" 
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    placeholder=""
+                    value=""
                     required="required" />
                   <div class="invalid-feedback">
                     Valid first name is required.
@@ -112,14 +112,14 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="lastName">Last name</label>
-                  <input 
+                  <input
                     v-model="form.lastName"
                     v-on:keyup="validateName"
-                    type="text" 
-                    class="form-control" 
-                    id="lastName" 
-                    placeholder="" 
-                    value="" 
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    placeholder=""
+                    value=""
                     required="required">
                   <div class="invalid-feedback">
                     Valid last name is required.
@@ -129,13 +129,13 @@
               <div class="row">
                 <div class="col-md-12 mb-3">
                   <label for="secretCode">Secret code</label>
-                  <input 
+                  <input
                     v-model="form.secretCode"
-                    type="text" 
-                    class="form-control" 
-                    id="secretCode" 
-                    placeholder="" 
-                    value="" 
+                    type="text"
+                    class="form-control"
+                    id="secretCode"
+                    placeholder=""
+                    value=""
                     required="required">
                   <div class="invalid-feedback">
                     Valid last name is required.
@@ -145,7 +145,9 @@
 
               <hr class="mb-4">
 
-              <button class="btn btn-primary btn-lg btn-block" type="submit">I'm ready!</button>
+              <button
+                class="btn btn-primary btn-lg btn-block"
+                type="submit">I'm ready!</button>
             </form>
           </div>
           <div class="col-md-4 order-md-2 mb-4">
@@ -154,7 +156,7 @@
               <span class="badge badge-secondary badge-pill">{{hints.length}}</span>
             </h4>
             <ul class="list-group mb-3">
-              <li 
+              <li
                 v-for="hint in hints"
                 class="list-group-item d-flex justify-content-between lh-condensed">
                 <div>
@@ -172,7 +174,7 @@
       </div> <!-- .row -->
       <div class="gandalf-footer">
         <img class="d-block mx-auto mb-4" src="assets/gfx/gandalf.png" width="100" height="75" alt="" />
-        <div 
+        <div
           v-if="showFooterSpeechBubble"
           v-on:click="hideFooterSpeechBubble"
           class="speech-bubble">{{gandalfFooterText}}</div>
