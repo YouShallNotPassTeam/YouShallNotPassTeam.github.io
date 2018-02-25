@@ -52,8 +52,7 @@
                     class="form-control"
                     id="city"
                     placeholder=""
-                    value=""
-                    required="required">
+                    value="" />
                   <div class="invalid-feedback">
                     Please select a valid country.
                   </div>
@@ -62,7 +61,7 @@
                   <label for="country">Preferred department</label>
                   <select
                     v-model="form.department"
-                    class="custom-select d-block w-100" id="country" required="required">
+                    class="custom-select d-block w-100" id="country">
                     <option value="">Choose...</option>
                     <option>Front-end / JS</option>
                     <option>Front-end / Styling</option>
@@ -87,8 +86,7 @@
                     class="form-control"
                     id="tech"
                     placeholder=""
-                    value=""
-                    required="required" />
+                    value="" />
                   <div class="invalid-feedback">
                     Valid last name is required.
                   </div>
@@ -104,8 +102,7 @@
                     class="form-control"
                     id="firstName"
                     placeholder=""
-                    value=""
-                    required="required" />
+                    value="" />
                   <div class="invalid-feedback">
                     Valid first name is required.
                   </div>
@@ -119,26 +116,26 @@
                     class="form-control"
                     id="lastName"
                     placeholder=""
-                    value=""
-                    required="required">
+                    value="" />
                   <div class="invalid-feedback">
                     Valid last name is required.
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 mb-3">
+                <div class="col-md-12 mb-3" >
                   <label for="secretCode">Secret code</label>
                   <input
                     v-model="form.secretCode"
+                    v-bind:class="{ 'is-invalid' : !secret.isSuccessful }"
                     type="text"
                     class="form-control"
                     id="secretCode"
                     placeholder=""
                     value=""
-                    required="required">
+                    required="required" />
                   <div
-                    v-if="!secret.isSuccessful"
+                    v-show="!secret.isSuccessful"
                     class="invalid-feedback">
                     {{secret.errorMsg}}
                   </div>

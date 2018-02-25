@@ -190,7 +190,6 @@
       doSubmit: function() {
         var that = this;
         console.log('form:', this.form.secretCode);
-        // return;
         this.$http
           .post(
             getRestEndpoint('validate'),
@@ -227,10 +226,17 @@
 
             that.secret.isSuccessful = response.succes;
 
+            console.log('secret:', that.secret.isSuccessful);
+
 
             if(!response.succes) {
-              that.secret.errorMsg = response.secret.body;
+              var sec = response.secret;
+              for(var p in sec) {
+                that.secret.errorMsg = sec[p];
+                break;
+              }
             }
+            console.log('secret:', that.secret.errorMsg);
             console.log('aaaaa', that);
 
             console.log('response', response);
