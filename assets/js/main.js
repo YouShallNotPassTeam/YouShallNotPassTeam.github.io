@@ -179,7 +179,12 @@
 
       hints: [
 
-      ]
+      ],
+
+      secret: {
+        isSuccessful: true,
+        errorMsg: ''
+      }
     },
     methods: {
       doSubmit: function() {
@@ -205,15 +210,28 @@
             // this.someData = response.body;
             response = getResponseBody(response);
             var hints = [];
-
+            var hintExists = [];
             for(var hintId in response.hint) {
-              hints.push({
-                title: hintId,
-                description: response.hint[hintId]
+              hintExists = that.hints.filter(function(hint) {
+                return hint.title.toLowerCase() === hintId.toLowerCase();
               });
+              if(hintExists.length === 0) {
+                hints.push({
+                  title: hintId,
+                  description: response.hint[hintId]
+                });
+              }
             }
 
             that.hints = that.hints.concat(hints);
+
+            that.secret.isSuccessful = response.succes;
+
+
+            if(!response.succes) {
+              that.secret.errorMsg = response.secret.body;
+            }
+            console.log('aaaaa', that);
 
             console.log('response', response);
             // window.location = 'result.html?fn=' + this.firstName;

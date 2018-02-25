@@ -137,8 +137,10 @@
                     placeholder=""
                     value=""
                     required="required">
-                  <div class="invalid-feedback">
-                    Valid last name is required.
+                  <div
+                    v-if="!secret.isSuccessful"
+                    class="invalid-feedback">
+                    {{secret.errorMsg}}
                   </div>
                 </div>
               </div>
