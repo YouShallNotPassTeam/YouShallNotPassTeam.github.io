@@ -146,6 +146,15 @@
               </li>
             </ul>
 
+            <div
+              v-if="success.isSuccessful && success.formSubmitted"
+              class="card p-2">
+              <button
+                v-on:click="getToSubmitScore"
+                type="button"
+                class="btn btn-primary">Submit Score</button>
+            </div>
+
             <h4
               v-if="isTryNextActive"
               class="d-flex justify-content-between align-items-center mb-3">

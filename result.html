@@ -33,7 +33,9 @@
         <div class="row">
 
           <div class="col-md-8">
-            <h5 class="mb-3">Hey, {{form.firstName}}!</h5>
+            <h5
+              v-show="form.firstName"
+              class="mb-3">Hey, {{form.firstName}}!</h5>
             <form
               v-on:submit.prevent="doSubmit"
               class="needs-validation"
@@ -84,7 +86,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary btn-lg btn-block" style="margin:20px 0 0 0" type="submit">Sign me up!</button>
+              <button class="btn btn-primary btn-lg btn-block" style="margin:20px 0 0 0" type="submit">Submit my score!</button>
             </form>
           </div>
           <div class="col-md-4">

@@ -202,10 +202,14 @@
 
       success: {
         isSuccessful: true,
-        errorMsg: ''
+        errorMsg: '',
+        formSubmitted: false
       }
     },
     methods: {
+      getToSubmitScore: function() {
+        window.location = 'result.html?uid=' + this.form.userId;
+      },
       doSubmit: function() {
 
         var that = this;
@@ -214,11 +218,11 @@
         }
         console.log('this.userHasId()', this.userHasId());
         if(this.userHasId() && this.form.attempts === 1) {
-          // var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
-          // var userId = readCookie(KOOKIE_NAME);
-          // this.form.startTime = usr.startTime;
-          // this.form.attempts = usr.attempts;
-          // this.form.userId = userId;
+          var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
+          var userId = readCookie(KOOKIE_NAME);
+          this.form.startTime = usr.startTime;
+          this.form.attempts = usr.attempts;
+          this.form.userId = userId;
         }
         if(!this.userHasId()) {
           this.userCreateId();
@@ -256,10 +260,11 @@
                 return hint.title.toLowerCase() === hintId.toLowerCase();
               });
               if(response.success){
-                  response.hint[hintId] = response.hint[hintId].replace('_here_', '<a href="result.html?">here</a>') // this does not render raw :S
+                  // response.hint[hintId] = response.hint[hintId].replace('_here_', '<a href="result.html?">here</a>') // this does not render raw :S
               }
 
-              errorMsg = response.hint[hintId]
+              errorMsg = response.hint[hintId];
+
               if(hintExists.length === 0) {
                 hints.push({
                   title: hintId,
@@ -268,18 +273,18 @@
               }
             }
 
+            this.success.formSubmitted = true;
+
             that.hints = that.hints.concat(hints);
 
             if(!response.success) {
               that.isTryNextActive = true;
               this.success.isSuccessful = false;
-              this.success.errorMsg = errorMsg
+              this.success.errorMsg = errorMsg;
               that.form.attempts++;
             }else{
                 this.success.isSuccessful = true;
                 this.success.errorMsg = '';
-
-                //window.location = 'result.html?uid=' + this.form.userId;
             }
 
             for(var secretId in response.secret) {
@@ -496,12 +501,12 @@
       var usrData = readCookie(KOOKIE_NAME_STORE);
       if(usrData !== null) {
         usrData = JSON.parse(usrData);
-        console.log(usrData);
         this.form = usrData;
         this.form.email = '';
       }
     },
     data: {
+      easters: {},
       form: {
         firstName: 'Anonymous',
         lastName: '',
@@ -516,9 +521,11 @@
         .post(
           getRestEndpoint('register'),
           ({
-            first_name: this.first_name,
-            last_name: this.last_name,
-            email: this.email,
+            first_name: this.form.firstName,
+            last_name: this.form.lastName,
+            email: this.form.email,
+            attempts: this.form.attempts,
+            time: (this.form.endTime - this.form.startTime),
             hints: 0,
             secrets: 0
           }),
