@@ -271,12 +271,15 @@
             that.hints = that.hints.concat(hints);
 
             if(!response.success) {
+              that.isTryNextActive = true;
               this.success.isSuccessful = false;
               this.success.errorMsg = errorMsg
               that.form.attempts++;
             }else{
                 this.success.isSuccessful = true;
                 this.success.errorMsg = '';
+
+                //window.location = 'result.html?uid=' + this.form.userId;
             }
 
             for(var secretId in response.secret) {
@@ -291,19 +294,6 @@
                 }
             }
             that.secrets = that.secrets.concat(secrets);
-
-            if(!response.success) {
-              that.isTryNextActive = true;
-              var sec = response.secret;
-              for(var p in sec) {
-                that.secret.errorMsg = sec[p];
-                that.tryNext = sec[p];
-                break;
-              }
-            }
-            else {
-              //window.location = 'result.html?uid=' + this.form.userId;
-            }
 
           },
           function(errorResponse) {
