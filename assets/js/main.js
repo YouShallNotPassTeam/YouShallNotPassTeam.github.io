@@ -81,7 +81,8 @@
 
   var __DEBUG__ = true;
 
-  var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
+  //var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
+  var baseUrl = 'https://youshallnotpass.mindgames.bg/web/';
   var restEndpoints = {
     'validate': 'validate'
   };
@@ -212,11 +213,11 @@
           this.userCreateId();
         }
         if(this.userHasId() && this.form.attempts === 1) {
-          var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
-          var userId = readCookie(KOOKIE_NAME);
-          this.form.startTime = usr.startTime;
-          this.form.attempts = usr.attempts;
-          this.form.userId = userId;
+          // var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
+          // var userId = readCookie(KOOKIE_NAME);
+          // this.form.startTime = usr.startTime;
+          // this.form.attempts = usr.attempts;
+          // this.form.userId = userId;
         }
         this.form.endTime = new Date().getTime();
         this.updateUserStore();
