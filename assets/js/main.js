@@ -558,7 +558,7 @@
 
     setTimeout(function() {
       that.showSpinner = false;
-    }, 5000);
+    }, 3000);
 
     // return response callback
     return function(response) {
