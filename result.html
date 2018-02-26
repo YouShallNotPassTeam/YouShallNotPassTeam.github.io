@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="">
   <head>
     <meta charset="utf-8" />
@@ -33,7 +33,7 @@
         <div class="row">
 
           <div class="col-md-8">
-            <h5 class="mb-3">Hey, {{first_name}}!</h5>
+            <h5 class="mb-3">Hey, {{form.firstName}}!</h5>
             <form
               v-on:submit.prevent="doSubmit"
               class="needs-validation"
@@ -41,26 +41,28 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="first_name">First Name</label>
-                  <input v-model="first_name"
-                         type="text"
-                         class="form-control"
-                         id="first_name"
-                         placeholder=""
-                         value=""
-                         required="required">
+                  <input
+                    v-model="form.firstName"
+                    type="text"
+                    class="form-control"
+                    id="first_name"
+                    placeholder=""
+                    value=""
+                    required="required">
                   <div class="invalid-feedback">
                     Please enter first name.
                   </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="last_name">Last Name</label>
-                  <input v-model="last_name"
-                         type="text"
-                         class="form-control"
-                         id="last_name"
-                         placeholder=""
-                         value=""
-                         required="required">
+                <div class="col-md-3 mb-1">
+                  <label for="last_name">First Name</label>
+                  <input
+                    v-model="form.lastName"
+                    type="text"
+                    class="form-control"
+                    id="last_name"
+                    placeholder=""
+                    value=""
+                    required="required">
                   <div class="invalid-feedback">
                     Please enter last name.
                   </div>
@@ -70,7 +72,7 @@
                 <div class="col-md-12 mb-6">
                   <label for="email">E-mail</label>
                   <input
-                    v-model="email"
+                    v-model="form.email"
                     type="text"
                     class="form-control"
                     id="email"

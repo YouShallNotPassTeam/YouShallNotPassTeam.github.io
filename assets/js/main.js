@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
 
   /*
                             _           _ _               _                          _
@@ -84,7 +84,8 @@
   //var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
   var baseUrl = 'https://youshallnotpass.mindgames.bg/web/';
   var restEndpoints = {
-    'validate': 'validate'
+    'validate': 'validate',
+    'register': 'register'
   };
 
   function getRestEndpoint(endpointId) {
@@ -212,15 +213,15 @@
           return;
         }
         console.log('this.userHasId()', this.userHasId());
-        if(!this.userHasId()) {
-          this.userCreateId();
-        }
         if(this.userHasId() && this.form.attempts === 1) {
           // var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
           // var userId = readCookie(KOOKIE_NAME);
           // this.form.startTime = usr.startTime;
           // this.form.attempts = usr.attempts;
           // this.form.userId = userId;
+        }
+        if(!this.userHasId()) {
+          this.userCreateId();
         }
         this.form.endTime = new Date().getTime();
         this.updateUserStore();
@@ -495,25 +496,30 @@
     }
   });
 
-  
+
   var ysnpAppResult = new Vue({
     el: '#ysnpAppResult',
-    created: function () {
-      this.first_name = window.location.search.split('=')[1] || 'Anonymous';
+    created: function() {
+      // this.firstName = window.location.search.split('=')[1] || 'Anonymous';
     },
-    mounted: function () {
-
+    mounted: function() {
+      var usrData = readCookie(KOOKIE_NAME_STORE);
+      if(usrData !== null) {
+        usrData = JSON.parse(usrData);
+        console.log(usrData);
+        this.form = usrData;
+        this.form.email = '';
+      }
     },
     data: {
-      first_name: 'Anonymous',
-      last_name: '',
-      email: '',
-      hints: 0,
-      secrets: 0
-
+      form: {
+        firstName: 'Anonymous',
+        lastName: '',
+        email: ''
+      }
     },
     methods: {
-      doSubmit: function () {
+      doSubmit: function() {
         var that = this;
         console.log('form:', this.email);
         this.$http
@@ -545,9 +551,7 @@
           else {
             console.log(response);
           }
-
-
-        });
+    });
       }
     }
   });
