@@ -190,13 +190,16 @@
       hints: [
 
       ],
+      secrets: [
+
+      ],
       easters: {
         dotnet: false
       },
       isTryNextActive: false,
       tryNext: '',
 
-      secret: {
+      success: {
         isSuccessful: true,
         errorMsg: ''
       }
@@ -242,12 +245,20 @@
             // get body data
             // this.someData = response.body;
             response = getResponseBody(response);
+            var errorMsg = '';
             var hints = [];
+            var secrets = [];
             var hintExists = [];
+            var secretExists = [];
             for(var hintId in response.hint) {
               hintExists = that.hints.filter(function(hint) {
                 return hint.title.toLowerCase() === hintId.toLowerCase();
               });
+              if(response.success){
+                  response.hint[hintId] = response.hint[hintId].replace('_here_', '<a href="result.html?">here</a>') // this does not render raw :S
+              }
+
+              errorMsg = response.hint[hintId]
               if(hintExists.length === 0) {
                 hints.push({
                   title: hintId,
@@ -257,13 +268,30 @@
             }
 
             that.hints = that.hints.concat(hints);
-            that.secret.isSuccessful = response.succes;
 
-            if(!that.secret.isSuccessful) {
+            if(!response.success) {
+              this.success.isSuccessful = false;
+              this.success.errorMsg = errorMsg
               that.form.attempts++;
+            }else{
+                this.success.isSuccessful = true;
+                this.success.errorMsg = '';
             }
 
-            if(!response.succes) {
+            for(var secretId in response.secret) {
+                secretExists = that.secrets.filter(function(secret) {
+                    return secret.title.toLowerCase() === secretId.toLowerCase();
+                });
+                if(secretExists.length === 0) {
+                    secrets.push({
+                        title: secretId,
+                        description: response.secret[secretId]
+                    });
+                }
+            }
+            that.secrets = that.secrets.concat(secrets);
+
+            if(!response.success) {
               that.isTryNextActive = true;
               var sec = response.secret;
               for(var p in sec) {
@@ -273,7 +301,7 @@
               }
             }
             else {
-              window.location = 'result.html?uid=' + this.form.userId;
+              //window.location = 'result.html?uid=' + this.form.userId;
             }
 
           },
@@ -511,7 +539,7 @@
           // this.someData = response.body;
           response = getResponseBody(response);
 
-          if (response.succes) {
+          if (response.success) {
             window.location = "/"
           }
           else {

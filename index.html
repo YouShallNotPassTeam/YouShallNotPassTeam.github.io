@@ -94,18 +94,18 @@
                   <label for="secretCode">Secret code</label>
                   <input
                     v-model="form.secretCode"
-                    v-bind:class="{ 'is-invalid' : !secret.isSuccessful }"
+                    v-bind:class="{ 'is-invalid' : !success.isSuccessful }"
                     type="text"
                     class="form-control"
                     id="secretCode"
                     placeholder=""
                     value=""
                     required="required" />
-                  <!-- div
-                    v-show="!secret.isSuccessful"
+                  <div
+                    v-show="!success.isSuccessful"
                     class="invalid-feedback">
-                    {{secret.errorMsg}}
-                  </div -->
+                    {{success.errorMsg}}
+                  </div>
                 </div>
               </div>
 
@@ -155,9 +155,10 @@
               v-if="isTryNextActive"
               class="list-group mb-3 hints">
               <li
+                v-for="secret in secrets"
                 class="list-group-item d-flex justify-content-between lh-condensed">
                 <div>
-                  <h6 class="my-0">{{tryNext}}</h6>
+                  <h6 class="my-0">{{ secret.description }}</h6>
                 </div>
                 <span class="text-muted"></span>
               </li>
