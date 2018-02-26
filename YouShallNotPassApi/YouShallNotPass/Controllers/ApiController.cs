@@ -67,6 +67,7 @@ namespace YouShallNotPass.Controllers
         [Route("register")]
         public ActionResult Register(string first_name = "", string last_name = "", string email="", int time = 0, int attempts = 0, int secrets = 0)
         {
+              Response.AppendHeader("Access-Control-Allow-Origin", "*");
               using (ShallPassDBContext dc = new ShallPassDBContext())
               {
                     DAL.User user = new DAL.User()
@@ -91,7 +92,7 @@ namespace YouShallNotPass.Controllers
         [Route("list")]
         public ActionResult List()
         {
-
+              Response.AppendHeader("Access-Control-Allow-Origin", "*");
               List<User> list = new List<DAL.User>();
               using (ShallPassDBContext dc = new ShallPassDBContext())
               {

@@ -81,7 +81,8 @@
 
   var __DEBUG__ = true;
 
-  var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
+  //var baseUrl = 'http://passtest-001-site1.gtempurl.com/';
+  var baseUrl = 'https://youshallnotpass.mindgames.bg/web/';
   var restEndpoints = {
     'validate': 'validate',
     'register': 'register'
@@ -210,11 +211,11 @@
         }
         console.log('this.userHasId()', this.userHasId());
         if(this.userHasId() && this.form.attempts === 1) {
-          var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
-          var userId = readCookie(KOOKIE_NAME);
-          this.form.startTime = usr.startTime;
-          this.form.attempts = usr.attempts;
-          this.form.userId = userId;
+          // var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
+          // var userId = readCookie(KOOKIE_NAME);
+          // this.form.startTime = usr.startTime;
+          // this.form.attempts = usr.attempts;
+          // this.form.userId = userId;
         }
         if(!this.userHasId()) {
           this.userCreateId();
@@ -467,6 +468,7 @@
     }
   });
 
+
   var ysnpAppResult = new Vue({
     el: '#ysnpAppResult',
     created: function() {
@@ -490,22 +492,43 @@
     },
     methods: {
       doSubmit: function() {
-        console.log(JSON.stringify(this.form));
-        return;
-        this.$http.get(getRestEndpoint, {
-          first_name: this.form.firstName,
-          last_name: this.form.lastName,
-          email: this.form.email,
+        var that = this;
+        console.log('form:', this.email);
+        this.$http
+        .post(
+          getRestEndpoint('register'),
+          ({
+            first_name: this.first_name,
+            last_name: this.last_name,
+            email: this.email,
+            hints: 0,
+            secrets: 0
+          }),
+          {
+            responseType: 'json',
+            headers: {
+              // 'Accept': '*/*',
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+          })
+        .then(function (response) {
 
-        })
-        .then(function(res) {
-          console.log(res);
-        },function(err) {
-          console.error(err);
-        });
+          // get body data
+          // this.someData = response.body;
+          response = getResponseBody(response);
+
+          if (response.succes) {
+            window.location = "/"
+          }
+          else {
+            console.log(response);
+          }
+    });
       }
     }
   });
+
+
 
   Vue.http.interceptors.push(function(request) {
     var that = this;
