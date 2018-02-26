@@ -212,11 +212,12 @@
       },
       doSubmit: function() {
 
+        this.validateName();
+
         var that = this;
         if(this.form.secretCode.length === 0) {
           return;
         }
-        console.log('this.userHasId()', this.userHasId());
         if(this.userHasId() && this.form.attempts === 1) {
           var usr = JSON.parse(readCookie(KOOKIE_NAME_STORE));
           var userId = readCookie(KOOKIE_NAME);
@@ -411,7 +412,6 @@
       },
 
       userCreateId: function() {
-        console.log('creating id');
         var id = this.guidGen();
         this.form.userId = id;
         createCookie(KOOKIE_NAME, id, 365);
@@ -429,7 +429,6 @@
           this.$http
             .get('https://api.chucknorris.io/jokes/random')
             .then(function(res) {
-              console.log("ck:", res);
               res = JSON.parse(res.bodyText);
               that.wizardSayAndHide(res.value, 10000);
             });
@@ -441,7 +440,6 @@
         var haystack = ev.target.value || '';
         var technology = '';
         var hasFoundMatch = false;
-        // console.log('haystack:', haystack);
 
         var exciting = [
           {
@@ -462,7 +460,6 @@
 
         exciting.forEach(function(tech) {
           var isMatching = haystack.replace('.', '').match(tech.regex);
-          // console.log('is matching:', isMatching, hasFoundMatch);
           if(isMatching !== null && !hasFoundMatch) {
             console.log('success excite');
             hasFoundMatch = true;
@@ -471,7 +468,6 @@
           }
         }, this);
 
-        // console.log(technology, ev);
         var easter = getElement('#easter');
         if(easter.length) {
           easter = easter[0];
@@ -516,7 +512,6 @@
     methods: {
       doSubmit: function() {
         var that = this;
-        console.log('form:', this.email);
         this.$http
         .post(
           getRestEndpoint('register'),

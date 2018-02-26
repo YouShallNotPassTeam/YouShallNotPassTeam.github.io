@@ -21,19 +21,6 @@
       <!-- Add your site or application content here -->
       <div class="container">
         <div class="py-5 text-center">
-          <!-- div class="gandalf">
-            <img class="d-block mx-auto mb-4" src="assets/gfx/gandalf.png" width="100" height="75" alt="" />
-            <div
-              v-if="!showSpeechBubble"
-              v-bind:title="title"
-              v-on:click="updateTitle"
-              class="not" >...</div>
-            <div
-              v-if="showSpeechBubble"
-              v-on:click="hideSpeechBubble"
-              class="speech-bubble">{{gandalfSays}}</div>
-          </div -->
-          <!--<h2>Fly you fools!</h2>-->
           <p class="lead"></p>
         </div>
         <div class="row">
@@ -48,7 +35,6 @@
                   <label for="firstName">First name</label>
                   <input
                     v-model="form.firstName"
-                    v-on:keyup="validateName"
                     type="text"
                     class="form-control"
                     id="firstName"
@@ -62,7 +48,6 @@
                   <label for="lastName">Last name</label>
                   <input
                     v-model="form.lastName"
-                    v-on:keyup="validateName"
                     type="text"
                     class="form-control"
                     id="lastName"
@@ -114,10 +99,6 @@
               <button
                 class="btn btn-primary btn-lg btn-block"
                 type="submit">Continue</button>
-              <!-- button
-                v-on:click="wizardToggle"
-                class="btn btn-secondary btn-lg btn-block"
-                type="button">toggle wizard</button -->
             </form>
           </div>
           <div class="col-md-4 order-md-2 mb-4">
