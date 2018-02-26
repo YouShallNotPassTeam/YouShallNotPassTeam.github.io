@@ -490,6 +490,15 @@
 
   var ysnpAppResult = new Vue({
     el: '#ysnpAppResult',
+
+    // HTTP:
+    http: {
+      emulateJSON: true,
+      headers: {
+        'Accept': '*/*'
+      }
+    },
+
     created: function() {
       // this.firstName = window.location.search.split('=')[1] || 'Anonymous';
     },
